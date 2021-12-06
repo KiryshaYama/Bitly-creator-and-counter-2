@@ -1,6 +1,7 @@
 import requests
 from urllib.parse import urlparse
 import os
+import argparse
 
 
 def shorten_link(token, url):
@@ -26,10 +27,18 @@ def count_clicks(token, link):
   clicks_count = response.json()["total_clicks"]
   return clicks_count
 
+def parse_arguments():
+  parser = argparse.ArgumentParser(
+      description='Create short url and count clicks')
+  parser.add_argument('input_url', type=str, help='url to create a short link or a short link to count clicks')
+
+  return parser.parse_args()
 
 def main():
   token = os.getenv("BITLY_TOKEN")
-  user_input = input()
+  args = parse_arguments()
+  user_input = args.input_url
+  
   try:
     bitlink = shorten_link(token, user_input)
     print(bitlink)
