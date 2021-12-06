@@ -1,8 +1,8 @@
 import requests
 from urllib.parse import urlparse
 import os
+from dotenv import load_dotenv
 import argparse
-
 
 def shorten_link(token, url):
   headers = {
@@ -35,10 +35,11 @@ def parse_arguments():
   return parser.parse_args()
 
 def main():
+  load_dotenv()
   token = os.getenv("BITLY_TOKEN")
   args = parse_arguments()
   user_input = args.input_url
-  
+
   try:
     bitlink = shorten_link(token, user_input)
     print(bitlink)
