@@ -43,13 +43,14 @@ def main():
 
   try:
     bitlink = shorten_link(token, user_input)
-    print(bitlink)
+    print('Success! Your bitlink is:', bitlink)
   except requests.exceptions.HTTPError:
+    print('The input string is a bitlink.')
     try:
       clicks_count = count_clicks(token, parsed_url)
-      print(clicks_count)
+      print(f'The number of clicks to {user_input} is', clicks_count)
     except requests.exceptions.HTTPError:
-      print("Неверно введена ссылка")
+      print("wrong input url")
 
 
 if __name__ == "__main__":
